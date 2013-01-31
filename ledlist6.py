@@ -2,11 +2,7 @@
 
 import Image, time, sys, argparse, os, signal
 
-#spidevice = "/dev/spidev2.0"
-#numleds = 52
-#coldelay  = 0.03
-#repeatdelay = 1.0
-
+# Config file parser:
 COMMENT_CHAR = '#'
 OPTION_CHAR =  '='
 def parse_config(filename):
