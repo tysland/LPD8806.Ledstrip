@@ -39,14 +39,14 @@ if "options['repeatdelay']" not in locals():
 # Get and parse arguments:
 parser = argparse.ArgumentParser(description="Use an image to program a LPD8806 LED strip sequence.")
 parser.add_argument("filename", metavar="Image", type=str, help="Image file name")
-parser.add_argument("-r", "--repeats", metavar="Repeats", dest="repeats", default=0, type=int, help="Limit the number of times the sequence is repeated.")
-parser.add_argument("-d", "--delay", metavar="Repeatdelay", dest="repeatdelay", default=float(options['repeatdelay']), type=float, help="Delay (seconds) between each repeated sequence (default 1.0).")
-parser.add_argument("-c", "--coldelay", metavar="Columndelay", dest="coldelay", default=float(options['columndelay']), type=float, help="Delay (seconds) between each column (default 0.05).")
+parser.add_argument("-r", "--repeats", metavar="Repeats", dest="repeats", default=0, type=int, help="Limit the number of times the sequence is repeated (default 0 (infinite)).")
+parser.add_argument("-d", "--delay", metavar="Repeatdelay", dest="repeatdelay", default=float(options['repeatdelay']), type=float, help="Delay (seconds) between each repeated sequence (default "+str(float(options['repeatdelay']))+").")
+parser.add_argument("-c", "--coldelay", metavar="Columndelay", dest="coldelay", default=float(options['columndelay']), type=float, help="Delay (seconds) between each column (default "+str(float(options['columndelay']))+").")
 parser.add_argument("-b", "--blank", dest="blank", help="Turn LEDs off between repeats.", action="store_true")
 parser.add_argument("-s", "--silent", dest="silent", help="Silent operation.", action="store_true")
 parser.add_argument("-q", "--quiet", dest="quiet", help="Silent operation and suppress error messages.", action="store_true")
-parser.add_argument("--leds", metavar="Leds", dest="numleds", default=int(options['numleds']), type=int, help="Number of available leds (default 52).")
-parser.add_argument("--spi", metavar="SPI device", dest="spidevice", default=options['spidevice'], type=str, help="The SPI device to use (default /dev/spidev2.0).")
+parser.add_argument("--leds", metavar="Leds", dest="numleds", default=int(options['numleds']), type=int, help="Number of available leds (default "+str(int(options['numleds']))+").")
+parser.add_argument("--spi", metavar="SPI device", dest="spidevice", default=options['spidevice'], type=str, help="The SPI device to use (default "+options['spidevice']+").")
 args = parser.parse_args()
 if(args.quiet):
     args.silent=True
