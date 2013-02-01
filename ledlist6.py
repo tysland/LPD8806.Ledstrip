@@ -51,6 +51,8 @@ args = parser.parse_args()
 if(args.quiet):
     args.silent=True
 
+latchbytes=int(options['numleds'])/16
+
 # Check that we can write to SPI-device:
 if os.path.exists(args.spidevice):
     if os.path.isdir(args.spidevice):
@@ -86,9 +88,8 @@ else:
     sys.exit(1)
 
 # To turn off the LEDs when done or when stopped:
-off = [0]
-off[0] = bytearray(args.numleds*3+3)
-for y in range(args.numleds*3+3):
+off = [bytearray(args.numleds*3+latchbytes)]
+for y in range(args.numleds*3+latchbytes):
     off[0][y]=128
 
 # Trap signals:
@@ -111,13 +112,11 @@ for i in range(256):
 # Define the "image":
 if(not(args.silent)):
     print "Allocating %d columns..." % width
-column = [0 for x in range(width)]
-for x in range(width):
-    column[x] = bytearray(height*3+1)
+column = [bytearray(height*3+latchbytes) for x in range(width)]
 
 # Convert the image to useful data and apply gamma curve:
 if(not(args.silent)):
-    print "Converting..."
+    print "Applying gamma curve..."
 for x in range(width):
     for y in range(height):
         value=pixels[x,y]
